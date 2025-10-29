@@ -22,66 +22,77 @@ export async function FeaturedPosts() {
   }
 
   return (
-    <section className="py-24 relative">
+    <section className="py-12 lg:py-20 relative">
       <div className="absolute inset-0 concrete-texture opacity-50" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section header */}
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-4">
+        <div className="mb-12 lg:mb-16">
+          <div className="flex items-center gap-4 mb-6">
             <div className="h-px flex-1 bg-border" />
-            <h2 className="text-xs tracking-[0.3em] text-primary uppercase">Kiemelt Cikkek</h2>
+            <h2 className="text-xs tracking-[0.3em] text-primary uppercase">Szerkesztői Ajánló</h2>
             <div className="h-px flex-1 bg-border" />
           </div>
-          <h3 className="text-4xl md:text-5xl font-serif font-bold text-center text-balance">Legújabb Bejegyzések</h3>
+          <h3 className="text-3xl lg:text-4xl font-serif font-bold text-center text-balance">Kiemelt Tartalmak</h3>
         </div>
 
         {/* Posts grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {posts.map((post: any) => (
             <Link key={post._id} href={postPath(post.date, post.slug)}>
-              <Card className="group relative bg-card border-2 border-border hover:border-primary transition-all duration-300 overflow-hidden h-full">
-                {/* Decorative corner */}
-                <div className="absolute top-0 right-0 w-16 h-16 border-l-2 border-b-2 border-primary/20 group-hover:border-primary transition-colors" />
+              <Card className="group relative border-2 border-border hover:border-primary transition-all duration-300 overflow-hidden h-full rounded-lg">
+                {/* Mobile overlay card */}
+                <div className="md:hidden relative overflow-hidden aspect-[4/3]">
+                  {post.coverUrl ? (
+                    <img src={post.coverUrl} alt={post.title} className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" />
+                  ) : (
+                    <div className="absolute inset-0 bg-muted/20" />
+                  )}
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <span className="inline-block mb-2 text-[10px] tracking-wider uppercase bg-primary text-primary-foreground px-2 py-1 rounded">
+                      {post.category}
+                    </span>
+                    <h4 className="text-lg font-serif font-bold text-white line-clamp-2 mb-2">
+                      {post.title}
+                    </h4>
+                    {post.excerpt && (
+                      <p className="text-sm text-white/80 line-clamp-2">{post.excerpt}</p>
+                    )}
+                  </div>
+                </div>
 
-                <div className="p-8">
-                  {/* Category */}
+                {/* Desktop text card */}
+                <div className="hidden md:block p-6 lg:p-8 h-full flex flex-col">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-8 h-px bg-primary" />
-                    <span className="text-xs tracking-wider text-primary uppercase">{post.category}</span>
+                    <span className="text-xs tracking-wider uppercase text-primary bg-primary/10 px-2 py-1 rounded">
+                      {post.category}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {formatDate(post.date)}
+                    </span>
                   </div>
 
-                  {/* Title */}
-                  <h4 className="text-2xl font-serif font-bold mb-4 text-card-foreground group-hover:text-primary transition-colors">
+                  <h4 className="text-xl lg:text-2xl font-serif font-bold mb-4 line-clamp-2 group-hover:text-primary transition-colors">
                     {post.title}
                   </h4>
 
-                  {/* Excerpt */}
-                  <p className="text-muted-foreground leading-relaxed mb-6">{post.excerpt}</p>
+                  {post.excerpt && (
+                    <p className="text-muted-foreground line-clamp-3 mb-6 flex-grow">
+                      {post.excerpt}
+                    </p>
+                  )}
 
-                  {/* Meta */}
-                  <div className="flex items-center justify-between text-xs text-muted-foreground uppercase tracking-wide">
-                    <span>{formatDate(post.date)}</span>
-                    <span>{post.readTime}</span>
-                  </div>
-
-                  {/* Hover indicator */}
-                  <div className="mt-6 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="text-sm uppercase tracking-wide">Tovább Olvasom</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="square"
-                      strokeLinejoin="miter"
-                    >
-                      <line x1="5" x2="19" y1="12" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
+                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
+                    <span className="text-sm text-muted-foreground">
+                      {post.readTime || "5"} perc olvasás
+                    </span>
+                    <span className="text-primary group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
                   </div>
                 </div>
               </Card>
