@@ -33,6 +33,23 @@ export const featuredPostsQuery = groq`
   }
 `
 
+export const postsByCategoryQuery = groq`
+  *[_type == "blogPost" && category == $category] | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    category,
+    excerpt,
+    "date": publishedAt,
+    readTime,
+    featured,
+    author,
+    "coverUrl": content[_type == "image"][0].asset->url,
+    "coverWidth": content[_type == "image"][0].asset->metadata.dimensions.width,
+    "coverHeight": content[_type == "image"][0].asset->metadata.dimensions.height
+  }
+`
+
 export const postBySlugQuery = groq`
   *[_type == "blogPost" && slug.current == $slug][0] {
     _id,

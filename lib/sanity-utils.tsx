@@ -10,6 +10,19 @@ export function formatDate(date: string): string {
   })
 }
 
+export function postPath(date: string, slug: string): string {
+  try {
+    const d = new Date(date)
+    if (isNaN(d.getTime())) return `/blog/${slug}`
+    const y = String(d.getFullYear())
+    const m = String(d.getMonth() + 1).padStart(2, "0")
+    const dd = String(d.getDate()).padStart(2, "0")
+    return `/${y}/${m}/${dd}/${slug}`
+  } catch {
+    return `/blog/${slug}`
+  }
+}
+
 export const portableTextComponents = {
   block: {
     h2: ({ children }: any) => <h2 className="text-3xl font-serif font-bold mt-12 mb-6 text-primary">{children}</h2>,

@@ -4,7 +4,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { client } from "@/sanity/client"
 import { allPostsQuery, featuredPostsQuery } from "@/sanity/queries"
-import { formatDate } from "@/lib/sanity-utils"
+import { formatDate, postPath } from "@/lib/sanity-utils"
+import { HeroSlider } from "@/components/hero-slider"
 
 // Revalidate homepage every 60 seconds to reflect new posts
 export const revalidate = 60
@@ -32,35 +33,11 @@ export default async function Home() {
     <main className="min-h-screen">
       <Header />
 
-      {/* Featured hero */}
+      {/* Featured hero slider */}
       <section className="relative pt-28 pb-12">
         <div className="container mx-auto px-4">
           {featured.length > 0 ? (
-            <Link href={`/blog/${featured[0].slug}`} className="group block">
-              <div className="relative border-2 border-border overflow-hidden">
-                {featured[0].coverUrl && (
-                  <Image
-                    src={featured[0].coverUrl}
-                    alt={featured[0].title}
-                    width={featured[0].coverWidth || 1600}
-                    height={featured[0].coverHeight || 900}
-                    className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-                    sizes="(max-width: 1024px) 100vw, 1024px"
-                    priority
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <span className="block mb-2 text-xs tracking-wider text-primary uppercase bg-background/80 px-2 py-1 border border-primary w-fit">
-                    Kiemelt
-                  </span>
-                  <h1 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-foreground underline-sweep inline">
-                    {featured[0].title}
-                  </h1>
-                  <p className="mt-4 max-w-2xl text-muted-foreground hidden md:block">{featured[0].excerpt}</p>
-                </div>
-              </div>
-            </Link>
+            <HeroSlider items={featured} />
           ) : (
             <div className="border-2 border-border p-8 text-center">
               <h2 className="text-2xl font-serif font-bold mb-2">Üdv az Ubikon blogon</h2>
@@ -99,7 +76,7 @@ export default async function Home() {
                       <div className="w-8 h-px bg-primary" />
                       <span className="text-xs tracking-wider text-primary uppercase">{post.category}</span>
                     </div>
-                    <Link href={`/blog/${post.slug}`} className="block">
+                    <Link href={postPath(post.date, post.slug)} className="block">
                       <h3 className="text-2xl font-serif font-bold underline-sweep inline">
                         {post.title}
                       </h3>
@@ -122,7 +99,7 @@ export default async function Home() {
               <ul className="space-y-4">
                 {latest.map((p: any) => (
                   <li key={p._id}>
-                    <Link href={`/blog/${p.slug}`} className="group">
+                    <Link href={postPath(p.date, p.slug)} className="group">
                       <div className="flex items-start gap-3">
                         <div className="w-16 h-16 border border-border bg-muted/20 overflow-hidden">
                           {p.coverUrl && (

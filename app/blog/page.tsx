@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card"
 import Link from "next/link"
 import { client } from "@/sanity/client"
 import { allPostsQuery } from "@/sanity/queries"
-import { formatDate } from "@/lib/sanity-utils"
+import { formatDate, postPath } from "@/lib/sanity-utils"
 
 // Revalidate blog listing every 60 seconds
 export const revalidate = 60
@@ -70,7 +70,7 @@ export default async function BlogPage() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {allPosts.map((post: any) => (
-                <Link key={post._id} href={`/blog/${post.slug}`}>
+                <Link key={post._id} href={postPath(post.date, post.slug)}>
                   <Card className="group relative bg-card border-2 border-border hover:border-primary transition-all duration-300 overflow-hidden h-full">
                     {post.featured && (
                       <div className="absolute top-4 right-4 z-10">
