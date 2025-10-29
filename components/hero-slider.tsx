@@ -29,16 +29,20 @@ export function HeroSlider({ items, interval = 5000 }: { items: Item[]; interval
   const current = items[index]
 
   return (
-    <Link href={require("@/lib/sanity-utils").postPath(current.date as string, current.slug)} className="group block">
-      <div className="relative border-2 border-border overflow-hidden">
+    <Link
+      href={require("@/lib/sanity-utils").postPath(current.date as string, current.slug)}
+      className="group block cursor-pointer"
+      aria-label={current.title}
+    >
+      {/* Fixed aspect ratio on mobile to prevent layout jumps */}
+      <div className="relative border-2 border-border overflow-hidden aspect-[4/3] sm:aspect-[4/3] md:aspect-[16/9]">
         {current.coverUrl && (
           <Image
             src={current.coverUrl}
             alt={current.title}
-            width={current.coverWidth || 1600}
-            height={current.coverHeight || 900}
-            className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-            sizes="(max-width: 1024px) 100vw, 1024px"
+            fill
+            className="object-cover object-top sm:object-center opacity-90 group-hover:opacity-100 transition-opacity"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1024px"
             priority
           />
         )}
@@ -49,11 +53,12 @@ export function HeroSlider({ items, interval = 5000 }: { items: Item[]; interval
           {/* Subtle left-to-right shade to soften bright areas behind text */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
         </div>
-        <div className="absolute bottom-0 left-0 right-0 p-8">
+        {/* Make whole card clickable; avoid nested interactive elements */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
           <span className="block mb-2 text-xs tracking-wider text-primary uppercase bg-background/80 px-2 py-1 border border-primary w-fit">
             Kiemelt
           </span>
-          <h1 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-sans font-extrabold leading-tight text-foreground underline-sweep inline">
+          <h1 className="mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold leading-tight text-foreground underline-sweep inline">
             {current.title}
           </h1>
           {current.excerpt && (
@@ -62,9 +67,9 @@ export function HeroSlider({ items, interval = 5000 }: { items: Item[]; interval
             </p>
           )}
           <div className="mt-6">
-            <button className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground uppercase tracking-wide border border-primary shadow-md">
+            <span className="px-4 py-2 bg-primary text-primary-foreground uppercase tracking-wide border border-primary shadow-md inline-block pointer-events-none">
               Olvasd el
-            </button>
+            </span>
           </div>
         </div>
 

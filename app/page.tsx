@@ -54,7 +54,46 @@ export default async function Home() {
           <div className="lg:col-span-2 space-y-8">
             {posts.slice(0, 12).map((post: any) => (
               <article key={post._id} className="group border-2 border-border hover:border-primary transition-colors">
-                <div className="grid md:grid-cols-3 gap-0">
+                {/* Mobile overlay card */}
+                <Link href={postPath(post.date, post.slug)} className="md:hidden block">
+                  <div className="relative overflow-hidden aspect-[4/3]">
+                    {post.coverUrl ? (
+                      <Image
+                        src={post.coverUrl}
+                        alt={post.title}
+                        fill
+                        className="object-cover object-top"
+                        sizes="(max-width: 768px) 100vw"
+                        priority={false}
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-muted/20 flex items-center justify-center">
+                        <span className="text-xs text-muted-foreground uppercase tracking-wide">Nincs kép</span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 pointer-events-none">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      {post.category && (
+                        <span className="inline-block mb-2 text-xs tracking-wider uppercase bg-primary text-primary-foreground px-2 py-1">
+                          {post.category}
+                        </span>
+                      )}
+                      <h3 className="text-xl sm:text-2xl font-serif font-bold leading-snug text-foreground">
+                        {post.title}
+                      </h3>
+                      <div className="mt-3 text-[11px] text-muted-foreground uppercase tracking-wide flex items-center gap-4">
+                        <span>{formatDate(post.date)}</span>
+                        {post.readTime && <span>{post.readTime}</span>}
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+
+                {/* Desktop/tablet grid card */}
+                <div className="hidden md:grid md:grid-cols-3 gap-0">
                   <div className="md:col-span-1">
                     {post.coverUrl ? (
                       <Image
@@ -63,7 +102,7 @@ export default async function Home() {
                         width={post.coverWidth || 800}
                         height={post.coverHeight || 600}
                         className="w-full h-full object-cover"
-                        sizes="(max-width: 768px) 100vw, 33vw"
+                        sizes="(max-width: 1024px) 33vw, 33vw"
                       />
                     ) : (
                       <div className="h-full w-full bg-muted/20 flex items-center justify-center">
