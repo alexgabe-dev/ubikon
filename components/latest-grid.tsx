@@ -3,6 +3,7 @@ import Image from "next/image"
 import { client } from "@/sanity/client"
 import { allPostsQuery } from "@/sanity/queries"
 import { postPath } from "@/lib/sanity-utils"
+import { BackgroundDecor } from "@/components/background-decor"
 
 type Post = {
   _id: string
@@ -29,7 +30,8 @@ export async function LatestGrid() {
   const cats = Array.from(new Set(list.map((p) => p.category))).filter(Boolean)
 
   return (
-    <section className="py-12 lg:py-16">
+    <section className="py-12 lg:py-16 relative overflow-hidden">
+      <BackgroundDecor patternOpacity="0.05" />
       <div className="container mx-auto px-4">
         <div className="mb-8 lg:mb-12">
           <div className="flex items-center gap-3 mb-6">
@@ -37,7 +39,7 @@ export async function LatestGrid() {
             <h2 className="text-xs tracking-wider text-primary uppercase">Legfrissebb Tartalmak</h2>
           </div>
 
-          {/* Top címkék/temák chips sor */}
+          {/* Top címkék gec */}
           <div className="flex flex-wrap gap-2 lg:gap-3">
             <Link href="/blog" className="text-xs uppercase tracking-wide border px-3 py-2 border-primary text-primary bg-primary/5 hover:bg-primary hover:text-primary-foreground transition-colors rounded-full">
               Összes

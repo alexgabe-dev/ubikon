@@ -10,6 +10,7 @@ import { Newsletter } from "@/components/newsletter"
 import { CategoryTabs } from "@/components/category-tabs"
 import { FeaturedPosts } from "@/components/featured-posts"
 import { LatestGrid } from "@/components/latest-grid"
+import { BackgroundDecor } from "@/components/background-decor"
 
 // Revalidate homepage every 60 seconds to reflect new posts
 export const revalidate = 60
@@ -38,7 +39,9 @@ export default async function Home() {
       <Header />
 
       {/* Featured hero slider */}
-      <section className="relative pt-28 pb-12">
+      <section className="relative pt-28 pb-12 overflow-hidden">
+        {/* Diszkrét háttérdekor a herohoz */}
+        <BackgroundDecor patternOpacity="0.08" />
         <div className="container mx-auto px-4">
           {featured.length > 0 ? (
             <HeroSlider items={featured} />

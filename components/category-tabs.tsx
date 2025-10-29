@@ -7,6 +7,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { WeatherWidget } from "@/components/weather"
 import { SocialLinks } from "@/components/social-links"
 import { Card } from "@/components/ui/card"
+import { BackgroundDecor } from "@/components/background-decor"
 
 export const revalidate = 60
 
@@ -41,7 +42,8 @@ export async function CategoryTabs() {
   ])
 
   return (
-    <section className="py-12 lg:py-16">
+    <section className="py-12 lg:py-16 relative overflow-hidden">
+      <BackgroundDecor patternOpacity="0.06" />
       <div className="container mx-auto px-4">
         <div className="mb-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
