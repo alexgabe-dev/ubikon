@@ -23,10 +23,10 @@ export function Newsletter() {
           </div>
 
           {/* Heading */}
-          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 text-balance">Csatlakozz az Adáshoz</h2>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 text-balance">Iratkozz fel a Hírlevelünkre!</h2>
 
           <p className="text-lg text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto font-serif">
-            Iratkozz fel, hogy megkapd a legújabb sci-fi történeteket, esszéket és felfedezéseket közvetlenül a neurális
+            Iratkozz fel, hogy megkapd a legújabb sci-fi híreket, közvetlenül a neurális
             interfészedre
           </p>
 
@@ -34,7 +34,7 @@ export function Newsletter() {
           <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
             <Input
               type="email"
-              placeholder="EMAIL@DOMAIN.HU"
+              placeholder="EMAIL@UBIKON.HU"
               className="flex-1 bg-background border-2 border-border focus:border-primary uppercase tracking-wide text-sm placeholder:text-muted-foreground/50"
             />
             <Button className="bg-primary text-primary-foreground hover:bg-accent uppercase tracking-wide px-8">
