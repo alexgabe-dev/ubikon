@@ -4,7 +4,7 @@ import { Footer } from "@/components/footer"
 import Link from "next/link"
 import Image from "next/image"
 import { postPath } from "@/lib/sanity-utils"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 
 type Result = {
@@ -33,7 +33,7 @@ function highlight(text: string, q: string) {
   )
 }
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const initial = (searchParams.get("q") || "").trim()
@@ -42,7 +42,6 @@ export default function SearchPage() {
   const [results, setResults] = useState<Result[]>([])
   const ctrlRef = useRef<AbortController | null>(null)
 
-  // Debounced fetch
   useEffect(() => {
     const handler = setTimeout(async () => {
       const value = q.trim()
@@ -61,7 +60,6 @@ export default function SearchPage() {
         setResults(data)
         router.replace(`/search?q=${encodeURIComponent(value)}`)
       } catch (e) {
-        // Ignore abort errors
       } finally {
         setLoading(false)
       }
@@ -134,5 +132,13 @@ export default function SearchPage() {
 
       <Footer />
     </main>
+  )
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<main className="min-h-screen" /> }>
+      <SearchContent />
+    </Suspense>
   )
 }
