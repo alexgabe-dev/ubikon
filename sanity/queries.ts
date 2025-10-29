@@ -10,7 +10,11 @@ export const allPostsQuery = groq`
     "date": publishedAt,
     readTime,
     featured,
-    author
+    author,
+    // first image in content as cover
+    "coverUrl": content[_type == "image"][0].asset->url,
+    "coverWidth": content[_type == "image"][0].asset->metadata.dimensions.width,
+    "coverHeight": content[_type == "image"][0].asset->metadata.dimensions.height
   }
 `
 
@@ -22,7 +26,10 @@ export const featuredPostsQuery = groq`
     category,
     excerpt,
     "date": publishedAt,
-    readTime
+    readTime,
+    "coverUrl": content[_type == "image"][0].asset->url,
+    "coverWidth": content[_type == "image"][0].asset->metadata.dimensions.width,
+    "coverHeight": content[_type == "image"][0].asset->metadata.dimensions.height
   }
 `
 

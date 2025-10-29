@@ -123,3 +123,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Hover underline utility using brand yellow (chart-4) */
+@layer utilities {
+  /* Smooth yellow underline sweep for headings */
+  .underline-sweep {
+    position: relative;
+  }
+  .underline-sweep::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.2em;
+    height: 0.18em;
+    width: 0;
+    background-color: var(--chart-4);
+    transition: width 240ms ease-in-out;
+  }
+  .underline-sweep:hover::after,
+  .group:hover .underline-sweep::after {
+    width: 100%;
+  }
+}

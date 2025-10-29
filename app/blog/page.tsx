@@ -6,12 +6,15 @@ import { client } from "@/sanity/client"
 import { allPostsQuery } from "@/sanity/queries"
 import { formatDate } from "@/lib/sanity-utils"
 
+// Revalidate blog listing every 60 seconds
+export const revalidate = 60
+
 async function getAllPosts() {
   try {
     const posts = await client.fetch(allPostsQuery)
     return posts
   } catch (error) {
-    console.error("[v0] Error fetching posts:", error)
+    console.error("[ubikon] Error fetching posts:", error)
     return []
   }
 }
