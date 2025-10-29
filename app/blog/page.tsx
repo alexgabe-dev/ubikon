@@ -5,6 +5,15 @@ import Link from "next/link"
 import { client } from "@/sanity/client"
 import { allPostsQuery } from "@/sanity/queries"
 import { formatDate, postPath } from "@/lib/sanity-utils"
+import type { Metadata } from "next"
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Minden cikk: kritikák, elemzések és gondolatok a sci‑firől.",
+  alternates: { canonical: `${siteUrl}/blog` },
+}
 
 // Revalidate blog listing every 60 seconds
 export const revalidate = 60

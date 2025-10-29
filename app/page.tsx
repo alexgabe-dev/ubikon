@@ -12,6 +12,8 @@ import { FeaturedPosts } from "@/components/featured-posts"
 import { LatestGrid } from "@/components/latest-grid"
 import { BackgroundDecor } from "@/components/background-decor"
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+
 // Revalidate homepage every 60 seconds to reflect new posts
 export const revalidate = 60
 
@@ -37,6 +39,24 @@ export default async function Home() {
   return (
     <main className="min-h-screen">
       <Header />
+
+      {/* WebSite JSON-LD a teljes oldalhoz és kereséshez */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'UBIKON – Sci‑Fi Blog',
+            url: siteUrl,
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: `${siteUrl}/search?q={query}`,
+              'query-input': 'required name=query',
+            },
+          }),
+        }}
+      />
 
       {/* Featured hero slider */}
       <section className="relative pt-28 pb-12 overflow-hidden">

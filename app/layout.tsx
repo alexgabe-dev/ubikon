@@ -4,6 +4,8 @@ import { Inter, Orbitron, Goldman, Domine } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -31,8 +33,54 @@ const domine = Domine({
 })
 
 export const metadata: Metadata = {
-  title: "UBIKON - Sci-Fi Blog",
-  description: "A brutalist-art deco fusion sci-fi blog exploring the future"
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "UBIKON – Sci‑Fi Blog",
+    template: "%s | UBIKON",
+  },
+  description: "Brutális részletességgel megírt sci‑fi kritikák, hírek és elemzések.",
+  keywords: [
+    "sci-fi",
+    "scifi",
+    "science fiction",
+    "filmek",
+    "sorozatok",
+    "könyvek",
+    "játékok",
+    "kritika",
+    "elemzés",
+  ],
+  authors: [{ name: "UBIKON" }],
+  creator: "UBIKON",
+  publisher: "UBIKON",
+  alternates: {
+    canonical: siteUrl,
+  },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    title: "UBIKON – Sci‑Fi Blog",
+    description: "Brutális részletességgel megírt sci‑fi kritikák, hírek és elemzések.",
+    siteName: "UBIKON",
+    images: [
+      {
+        url: `${siteUrl}/placeholder.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "UBIKON – Sci‑Fi Blog",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UBIKON – Sci‑Fi Blog",
+    description: "Brutális részletességgel megírt sci‑fi kritikák, hírek és elemzések.",
+    images: [`${siteUrl}/placeholder.jpg`],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({

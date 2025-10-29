@@ -1,5 +1,14 @@
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import type { Metadata } from "next"
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+
+export const metadata: Metadata = {
+  title: "Rólunk",
+  description: "Az Ubikon küldetése és filozófiája.",
+  alternates: { canonical: `${siteUrl}/about` },
+}
 
 export default function AboutPage() {
   return (

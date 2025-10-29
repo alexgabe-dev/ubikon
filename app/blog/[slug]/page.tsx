@@ -6,8 +6,11 @@ import { Domine } from "next/font/google"
 const readingFont = Domine({ subsets: ["latin"], weight: ["400", "700"], display: "swap" })
 import { client } from "@/sanity/client"
 import { postBySlugQuery } from "@/sanity/queries"
-import { formatDate, renderPortableText } from "@/lib/sanity-utils"
+import { formatDate, renderPortableText, postPath } from "@/lib/sanity-utils"
 import { notFound } from "next/navigation"
+import type { Metadata } from "next"
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
 
 async function getPost(slug: string) {
   try {
@@ -16,6 +19,48 @@ async function getPost(slug: string) {
   } catch (error) {
     console.error("[ubikon] Error fetching post:", error)
     return null
+  }
+}
+
+export async function generateMetadata(
+  props: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await props.params
+  const post = await getPost(slug)
+
+  if (!post) {
+    return {
+      title: "Bejegyzés nem található",
+      robots: { index: false, follow: false },
+    }
+  }
+
+  const canonical = new URL(postPath(post.date, post.slug), siteUrl)
+  const imageUrl = (() => {
+    const firstImage = post.content?.find((b: any) => b?.url)
+    return firstImage?.url ? new URL(firstImage.url).toString() : `${siteUrl}/placeholder.jpg`
+  })()
+
+  const description = post.excerpt || `${post.title} – ${post.category}`
+
+  return {
+    title: post.title,
+    description,
+    alternates: { canonical: canonical.toString() },
+    openGraph: {
+      type: "article",
+      url: canonical.toString(),
+      title: post.title,
+      description,
+      images: [{ url: imageUrl }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      images: [imageUrl],
+    },
+    robots: { index: true, follow: true },
   }
 }
 
@@ -37,6 +82,25 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
+            {/* JSON-LD */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  '@context': 'https://schema.org',
+                  '@type': 'Article',
+                  headline: post.title,
+                  description: post.excerpt || post.title,
+                  author: { '@type': 'Person', name: post.author },
+                  datePublished: post.date,
+                  image: post.content?.find((b: any) => b?.url)?.url || `${siteUrl}/placeholder.jpg`,
+                  mainEntityOfPage: {
+                    '@type': 'WebPage',
+                    '@id': new URL(postPath(post.date, post.slug), siteUrl).toString(),
+                  },
+                }),
+              }}
+            />
             {/* Category */}
             <div className="flex items-center gap-2 mb-6">
               <div className="w-12 h-px bg-primary" />
