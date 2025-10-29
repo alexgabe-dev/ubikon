@@ -42,19 +42,29 @@ export function HeroSlider({ items, interval = 5000 }: { items: Item[]; interval
             priority
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+        {/* Stronger readability overlays */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Bottom-to-top dark gradient to improve text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-transparent" />
+          {/* Subtle left-to-right shade to soften bright areas behind text */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+        </div>
         <div className="absolute bottom-0 left-0 right-0 p-8">
           <span className="block mb-2 text-xs tracking-wider text-primary uppercase bg-background/80 px-2 py-1 border border-primary w-fit">
             Kiemelt
           </span>
-          <h1 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-foreground underline-sweep inline">
+          <h1 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-sans font-extrabold leading-tight text-foreground underline-sweep inline">
             {current.title}
           </h1>
           {current.excerpt && (
-            <p className="mt-4 max-w-2xl text-muted-foreground hidden md:block">{current.excerpt}</p>
+            <p className="mt-4 max-w-2xl text-foreground hidden md:block md:text-lg drop-shadow-md">
+              {current.excerpt}
+            </p>
           )}
           <div className="mt-6">
-            <button className="px-4 py-2 bg-primary text-primary-foreground uppercase tracking-wide">Olvasd el</button>
+            <button className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground uppercase tracking-wide border border-primary shadow-md">
+              Olvasd el
+            </button>
           </div>
         </div>
 

@@ -26,7 +26,7 @@ export function Hero() {
           </h1>
 
           {/* Subheading */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed font-serif">
             Kritikák, elemzések és gondolatok a sci-fi univerzumról: könyvek, filmek, sorozatok, játékok és technológia
           </p>
 

@@ -16,11 +16,11 @@ export function Header() {
               <div className="h-12 w-12 bg-primary" />
               <div className="absolute inset-0 border-2 border-primary translate-x-1 translate-y-1" />
             </div>
-            <span className="text-2xl font-bold tracking-wider text-foreground font-sans">UBIKON</span>
+            <span className="text-2xl font-bold tracking-wider text-foreground font-logo">UBIKON</span>
           </Link>
 
           {/* Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-6 font-brand">
             <Link href="/" className="nav-link">Főoldal</Link>
             <Link href="/blog" className="nav-link">Blog</Link>
             <Link href="/about" className="nav-link">Rólam</Link>
@@ -56,7 +56,7 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-72">
-              <nav className="flex flex-col gap-4 mt-4">
+              <nav className="flex flex-col gap-4 mt-4 font-brand">
                 <Link href="/" className="nav-link">Főoldal</Link>
                 <Link href="/blog" className="nav-link">Blog</Link>
                 <Link href="/about" className="nav-link">Rólam</Link>

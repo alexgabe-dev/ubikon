@@ -12,6 +12,16 @@ export const blogPost = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "cover",
+      title: "Borítókép",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        { name: "alt", type: "string", title: "Alt szöveg" },
+      ],
+      description: "A listákban és a főoldalon megjelenő borítókép. Ha nincs megadva, az első beágyazott kép kerül felhasználásra.",
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",

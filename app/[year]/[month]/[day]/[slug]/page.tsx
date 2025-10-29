@@ -2,8 +2,8 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Merriweather } from "next/font/google"
-const readingFont = Merriweather({ subsets: ["latin"], weight: ["400", "700"], display: "swap" })
+import { Domine } from "next/font/google"
+const readingFont = Domine({ subsets: ["latin"], weight: ["400", "700"], display: "swap" })
 import { client } from "@/sanity/client"
 import { postBySlugQuery } from "@/sanity/queries"
 import { formatDate, renderPortableText } from "@/lib/sanity-utils"

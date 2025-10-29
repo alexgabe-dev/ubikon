@@ -23,7 +23,7 @@ export default function AboutPage() {
               Az Ubikon Küldetése
             </h1>
 
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto font-serif">
               Felfedezve a jövő határait a sci-fi, technológia és kultúra metszéspontjában
             </p>
           </div>
@@ -72,7 +72,7 @@ export default function AboutPage() {
                 <div className="border-2 border-border p-6 relative group hover:border-primary transition-colors">
                   <div className="absolute top-0 right-0 w-12 h-12 border-l-2 border-b-2 border-primary/20 group-hover:border-primary transition-colors" />
                   <h4 className="text-xl font-serif font-bold mb-3 text-foreground">Sci-Fi Irodalom</h4>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed font-serif">
                     Könyvkritikák, elemzések és felfedezések a science fiction irodalom világából.
                   </p>
                 </div>
@@ -80,7 +80,7 @@ export default function AboutPage() {
                 <div className="border-2 border-border p-6 relative group hover:border-primary transition-colors">
                   <div className="absolute top-0 right-0 w-12 h-12 border-l-2 border-b-2 border-primary/20 group-hover:border-primary transition-colors" />
                   <h4 className="text-xl font-serif font-bold mb-3 text-foreground">Filmek & Sorozatok</h4>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed font-serif">
                     Elemzések, kritikák és háttértörténetek a sci-fi filmek és sorozatok világából.
                   </p>
                 </div>
@@ -88,7 +88,7 @@ export default function AboutPage() {
                 <div className="border-2 border-border p-6 relative group hover:border-primary transition-colors">
                   <div className="absolute top-0 right-0 w-12 h-12 border-l-2 border-b-2 border-primary/20 group-hover:border-primary transition-colors" />
                   <h4 className="text-xl font-serif font-bold mb-3 text-foreground">Technológia</h4>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed font-serif">
                     A legújabb technológiai fejlesztések és azok hatása a jövőnkre.
                   </p>
                 </div>
@@ -96,7 +96,7 @@ export default function AboutPage() {
                 <div className="border-2 border-border p-6 relative group hover:border-primary transition-colors">
                   <div className="absolute top-0 right-0 w-12 h-12 border-l-2 border-b-2 border-primary/20 group-hover:border-primary transition-colors" />
                   <h4 className="text-xl font-serif font-bold mb-3 text-foreground">Játékok</h4>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed font-serif">
                     Sci-fi videojátékok, társasjátékok és interaktív élmények felfedezése.
                   </p>
                 </div>

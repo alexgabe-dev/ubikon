@@ -25,7 +25,7 @@ export function Newsletter() {
           {/* Heading */}
           <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 text-balance">Csatlakozz az Adáshoz</h2>
 
-          <p className="text-lg text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto font-serif">
             Iratkozz fel, hogy megkapd a legújabb sci-fi történeteket, esszéket és felfedezéseket közvetlenül a neurális
             interfészedre
           </p>

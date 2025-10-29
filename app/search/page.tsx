@@ -49,7 +49,7 @@ export default async function SearchPage({ searchParams }: { searchParams: { q?:
                       <span className="text-xs tracking-wider text-primary uppercase">{post.category}</span>
                     </div>
                     <h3 className="text-xl font-serif font-bold underline-sweep inline">{post.title}</h3>
-                    <p className="mt-2 text-muted-foreground line-clamp-3">{post.excerpt}</p>
+                    <p className="mt-2 text-muted-foreground line-clamp-3 font-serif">{post.excerpt}</p>
                   </div>
                 </div>
               </Link>

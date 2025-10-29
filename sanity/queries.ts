@@ -11,10 +11,10 @@ export const allPostsQuery = groq`
     readTime,
     featured,
     author,
-    // first image in content as cover
-    "coverUrl": content[_type == "image"][0].asset->url,
-    "coverWidth": content[_type == "image"][0].asset->metadata.dimensions.width,
-    "coverHeight": content[_type == "image"][0].asset->metadata.dimensions.height
+    // Use explicit cover image when set, otherwise fall back to first content image
+    "coverUrl": coalesce(cover.asset->url, content[_type == "image"][0].asset->url),
+    "coverWidth": coalesce(cover.asset->metadata.dimensions.width, content[_type == "image"][0].asset->metadata.dimensions.width),
+    "coverHeight": coalesce(cover.asset->metadata.dimensions.height, content[_type == "image"][0].asset->metadata.dimensions.height)
   }
 `
 
@@ -27,9 +27,9 @@ export const featuredPostsQuery = groq`
     excerpt,
     "date": publishedAt,
     readTime,
-    "coverUrl": content[_type == "image"][0].asset->url,
-    "coverWidth": content[_type == "image"][0].asset->metadata.dimensions.width,
-    "coverHeight": content[_type == "image"][0].asset->metadata.dimensions.height
+    "coverUrl": coalesce(cover.asset->url, content[_type == "image"][0].asset->url),
+    "coverWidth": coalesce(cover.asset->metadata.dimensions.width, content[_type == "image"][0].asset->metadata.dimensions.width),
+    "coverHeight": coalesce(cover.asset->metadata.dimensions.height, content[_type == "image"][0].asset->metadata.dimensions.height)
   }
 `
 
@@ -44,9 +44,9 @@ export const postsByCategoryQuery = groq`
     readTime,
     featured,
     author,
-    "coverUrl": content[_type == "image"][0].asset->url,
-    "coverWidth": content[_type == "image"][0].asset->metadata.dimensions.width,
-    "coverHeight": content[_type == "image"][0].asset->metadata.dimensions.height
+    "coverUrl": coalesce(cover.asset->url, content[_type == "image"][0].asset->url),
+    "coverWidth": coalesce(cover.asset->metadata.dimensions.width, content[_type == "image"][0].asset->metadata.dimensions.width),
+    "coverHeight": coalesce(cover.asset->metadata.dimensions.height, content[_type == "image"][0].asset->metadata.dimensions.height)
   }
 `
 

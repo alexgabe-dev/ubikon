@@ -92,7 +92,7 @@ export default async function BlogPage() {
                         {post.title}
                       </h3>
 
-                      <p className="text-muted-foreground leading-relaxed mb-6">{post.excerpt}</p>
+                      <p className="text-muted-foreground leading-relaxed mb-6 font-serif">{post.excerpt}</p>
 
                       <div className="flex items-center justify-between text-xs text-muted-foreground uppercase tracking-wide">
                         <span>{formatDate(post.date)}</span>

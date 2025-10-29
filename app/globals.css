@@ -76,8 +76,8 @@
 }
 
 @theme inline {
-  --font-sans: "Orbitron", "Geist", "Geist Fallback";
-  --font-serif: "Playfair Display", "Georgia", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Domine", "Georgia", serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback";
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -167,4 +167,16 @@
   width: 100%;
   height: 2px;
   background: linear-gradient(90deg, transparent, oklch(0.75 0.15 85), transparent);
+}
+
+/* Utilities */
+@layer utilities {
+  /* Brand font utility using --font-brand (Orbitron) */
+  .font-brand {
+    font-family: var(--font-brand), system-ui, sans-serif;
+  }
+  /* Logo font utility using --font-logo (Orbitron specific) */
+  .font-logo {
+    font-family: var(--font-logo), system-ui, sans-serif;
+  }
 }
