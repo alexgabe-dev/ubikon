@@ -71,3 +71,23 @@ export const postBySlugQuery = groq`
     author
   }
 `
+
+export const searchPostsQuery = groq`
+  *[_type == "blogPost" && (
+    title match $q ||
+    excerpt match $q ||
+    category match $q ||
+    pt::text(content) match $q
+  )] | order(publishedAt desc)[0...20] {
+    _id,
+    title,
+    "slug": slug.current,
+    category,
+    excerpt,
+    "date": publishedAt,
+    readTime,
+    "coverUrl": coalesce(cover.asset->url, content[_type == "image"][0].asset->url),
+    "coverWidth": coalesce(cover.asset->metadata.dimensions.width, content[_type == "image"][0].asset->metadata.dimensions.width),
+    "coverHeight": coalesce(cover.asset->metadata.dimensions.height, content[_type == "image"][0].asset->metadata.dimensions.height)
+  }
+`
