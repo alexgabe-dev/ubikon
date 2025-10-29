@@ -2,6 +2,8 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { Merriweather } from "next/font/google"
+const readingFont = Merriweather({ subsets: ["latin"], weight: ["400", "700"], display: "swap" })
 import { client } from "@/sanity/client"
 import { postBySlugQuery } from "@/sanity/queries"
 import { formatDate, renderPortableText } from "@/lib/sanity-utils"
@@ -12,13 +14,14 @@ async function getPost(slug: string) {
     const post = await client.fetch(postBySlugQuery, { slug })
     return post
   } catch (error) {
-    console.error("[v0] Error fetching post:", error)
+    console.error("[ubikon] Error fetching post:", error)
     return null
   }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug)
+export default async function BlogPostPage(props: { params: Promise<{ slug: string }> }) {
+  const { slug } = await props.params
+  const post = await getPost(slug)
 
   if (!post) {
     notFound()
@@ -61,7 +64,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
               )}
             </div>
 
-            <div className="prose prose-lg prose-invert max-w-none">{renderPortableText(post.content)}</div>
+            {/* Readable article typography */}
+            <div className={`${readingFont.className} prose prose-xl prose-invert max-w-3xl mx-auto`}>{renderPortableText(post.content)}</div>
 
             {/* Share section */}
             <div className="mt-16 pt-12 border-t-2 border-border">

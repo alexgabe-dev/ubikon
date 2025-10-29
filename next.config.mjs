@@ -1,10 +1,15 @@
+import { fileURLToPath } from 'url'
+
+const projectRoot = fileURLToPath(new URL('.', import.meta.url))
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
+  },
+  turbopack: {
+    // Ensure Next.js uses this project as the workspace root
+    root: projectRoot,
   },
   images: {
     remotePatterns: [

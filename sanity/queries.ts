@@ -33,7 +33,15 @@ export const postBySlugQuery = groq`
     "slug": slug.current,
     category,
     excerpt,
-    content,
+    content[]{
+      ...,
+      _type == "image" => {
+        ...,
+        "url": asset->url,
+        "width": asset->metadata.dimensions.width,
+        "height": asset->metadata.dimensions.height
+      }
+    },
     "date": publishedAt,
     readTime,
     author
